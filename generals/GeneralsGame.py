@@ -117,14 +117,14 @@ class GeneralsBoard:
 
     def valid_moves(self, player):
         """Return a numpy array with a 1 everywhere owned by given player."""
-        return (self.owns == player) & ((self.troops * player > 1) | (self.generals == player))
+        return (self.troops * player > 1) | (self.generals == player)
 
     def game_ended(self, player):
         if self.owns[self.generals == -player] == player:
             return 1
         elif self.owns[self.generals == player] == -player:
             return -1
-        # We stop at step 101 so both sides get exactly one change to double.
+        # We stop at step 101 so both sides get the same number of doublings
         elif self.step > 101 and np.sum(self.troops * player) > 0:
             return 1
         elif self.step > 101 and np.sum(self.troops * player) < 0:
@@ -255,12 +255,33 @@ class GeneralsGame(Game):
         return board.to_string()
 
 # g = GeneralsGame(5,5)
-# board = g.getInitBoard()
-# player = 1
+# g2 = GeneralsGame(5,5)
 
-# while True:
+# board = g.getInitBoard()
+# pair_board = board.copy()
+# pair_board.vflip()
+# pair_board.hflip()
+# board.show("?")
+# pair_board.show("?")
+
+# player = 1
+# pair_player = 1
+
+# def get_move():
+#     a = np.random.randint(g.getActionSize())
+#     valids = g.getValidMoves(board, player)
+#     while valids[a] != 1:
+#         a = np.random.randint(g.getActionSize())
+#     return a
+
+# for i in range(50):
+#     move = get_move()
+#     pair_moves = np.zeros(g.getActionSize())
+#     pair_moves[move] = 1
+#     pair_move = np.nonzero(g.hflip_pi(g.vflip_pi(pair_moves)))[0]
+
+#     board, player = g.getNextState(board, player, move)
+#     pair_board, pair_player = g.getNextState(pair_board, pair_player, pair_move)
+
 #     board.show(player)
-#     x = int(input("x (from left): "))
-#     y = int(input("y (from top): "))
-#     d = int(input("direction: "))
-#     board, player = g.getNextState(board, player, 0)
+#     pair_board.show(pair_player)
