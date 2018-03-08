@@ -124,11 +124,12 @@ class GeneralsBoard:
             return 1
         elif self.owns[self.generals == player] == -player:
             return -1
-        elif self.step > 100 and np.sum(self.troops * player) > 0:
+        # We stop at step 101 so both sides get exactly one change to double.
+        elif self.step > 101 and np.sum(self.troops * player) > 0:
             return 1
-        elif self.step > 100 and np.sum(self.troops * player) < 0:
+        elif self.step > 101 and np.sum(self.troops * player) < 0:
             return -1
-        elif self.step > 100:
+        elif self.step > 101:
             return 1e-4
         else:
             return 0
