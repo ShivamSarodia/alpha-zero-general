@@ -63,7 +63,7 @@ class NNetWrapper(NeuralNet):
         """
         list_boards, target_pis, target_vs = list(zip(*examples))
 
-        input_boards = np.empty((len(examples), len(examples[0].toarray())))
+        input_boards = np.empty((len(examples), len(list_boards[0].to_array())))
         for i, board in enumerate(list_boards):
             input_boards[i] = board.to_array()
 
