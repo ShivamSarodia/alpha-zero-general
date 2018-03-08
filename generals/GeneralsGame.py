@@ -117,7 +117,7 @@ class GeneralsBoard:
 
     def valid_moves(self, player):
         """Return a numpy array with a 1 everywhere owned by given player."""
-        return (self.owns == player) & (self.troops * player > 1)
+        return (self.owns == player) & ((self.troops * player > 1) | (self.generals == player))
 
     def game_ended(self, player):
         if self.owns[self.generals == -player] == player:
