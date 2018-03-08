@@ -124,9 +124,10 @@ class GeneralsBoard:
             return 1
         elif self.owns[self.generals == player] == -player:
             return -1
-        elif self.step > 100:
-            # Call it a tie if the game goes on too long.
-            return 1e-4
+        elif self.step > 100 and np.sum(self.troops * player) > 0:
+            return 1
+        elif self.step > 100 and np.sum(self.troops * player) < 0:
+            return -1
         else:
             return 0
 
