@@ -128,6 +128,8 @@ class GeneralsBoard:
             return 1
         elif self.step > 100 and np.sum(self.troops * player) < 0:
             return -1
+        elif self.step > 100:
+            return 1e-4
         else:
             return 0
 
